@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Tabs</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <!-- <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
+    <script src='main.js'></script> -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <style>
+        .b-tab {
+            padding: 20px;
+            border: 1px solid #000;
+            display: none;
+        }
+
+        .b-tab.active {
+            display: block;
+        }
+
+        .b-nav-tab {
+            display: inline-block;
+            padding: 20px;
+        }
+
+        .b-nav-tab.active {
+            color: #ff4200;
+        }
+    </style>
+</head>
+
+<body>
+    <a href="#orange" data-tab="orange" class="b-nav-tab active">
+        Orange
+    </a>
+    <a href="#green" data-tab="green" class="b-nav-tab">
+        Green
+    </a>
+    <a href="#blue" data-tab="blue" class="b-nav-tab">
+        Blue
+    </a>
+    <div id="orange" class="b-tab active">
+        Orange tab content
+    </div>
+    <div id="green" class="b-tab">
+        Green tab content
+    </div>
+    <div id="blue" class="b-tab">
+        Blue tab content
+    </div>
+
+    <script>
+        // 'use strict';
+        let navList = document.querySelectorAll(".b-nav-tab");
+        let itemBody = document.querySelectorAll(".b-tab");
+        let selectedTab, selectedTabBody;
+
+        function clear() {
+            for (let item of itemBody) {
+                item.style.display = "none"
+            }
+            for (let item of navList) {
+                item.classList.remove("active")
+            }
+            selectedTabBody = sessionStorage.getItem("selectedTab");
+            document.getElementById(selectedTabBody).style.display = "block";
+
+            document.querySelector("[data-tab='" + selectedTabBody + "']").classList.add("active");
+
+        }
+        if (sessionStorage.getItem("selectedTab")) {
+            clear()
+        }
+        for (let link of navList) {
+            link.addEventListener("click", function (e) {
+                debugger;
+                e.preventDefault();
+                selectedTab = this.getAttribute("data-tab");
+
+                this.classList.add("active")
+                sessionStorage.setItem("selectedTab", selectedTab);
+                clear();
+
+            })
+        }
+        // function Tabs() {
+        //     var bindAll = function () {
+        //         var menuElements = document.querySelectorAll('[data-tab]');
+        //         for (var i = 0; i < menuElements.length; i++) {
+        //             menuElements[i].addEventListener('click', change, false);
+        //         }
+        //     }
+
+        //     var clear = function () {
+        //         var menuElements = document.querySelectorAll('[data-tab]');
+        //         for (var i = 0; i < menuElements.length; i++) {
+        //             menuElements[i].classList.remove('active');
+        //             var id = menuElements[i].getAttribute('data-tab');
+        //             document.getElementById(id).classList.remove('active');
+        //         }
+        //         sessionStorage.setItem('selectedTab',id);
+        //     }
+
+        //     var change = function (e) {
+        //         clear();
+        //         e.target.classList.add('active');
+        //         var id = sessionStorage.getItem('selectedTab');
+        //         document.getElementById(id).classList.add('active');
+        //     }
+
+        //     bindAll();
+        //     selectedTab();
+        // }
+
+        // var connectTabs = new Tabs();
+
+        // function selectedTab() {
+        //     var id = sessionStorage.getItem('selectedTab');
+        //     console.log(id);
+        // }
+    </script>
+</body>
+
+</html>
